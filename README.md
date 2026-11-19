@@ -1,6 +1,6 @@
 # Cloud-Native Observability Platform
 
-> **Status: work in progress.** Milestone 1 (repository setup). Nothing is runnable yet.
+> **Status:** under active development. The application and monitoring stack are not yet runnable.
 
 A locally runnable, containerised observability platform that demonstrates how to
 instrument a Python application, collect metrics with Prometheus, and visualise
