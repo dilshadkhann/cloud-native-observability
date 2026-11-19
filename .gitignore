@@ -25,3 +25,7 @@ Thumbs.db
 
 # Project-local tooling
 .tools/
+
+
+# Project-local uv cache
+.uv-cache/
