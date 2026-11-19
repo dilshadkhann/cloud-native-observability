@@ -6,9 +6,11 @@ from contextlib import asynccontextmanager
 from typing import Annotated
 
 from fastapi import FastAPI, HTTPException, Path, Query, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 
 from app.config import Settings, load_settings
+from app.metrics import PrometheusMiddleware, create_metrics
 
 ITEMS: dict[int, str] = {
     1: "keyboard",
@@ -31,6 +33,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(title="Cloud-Native Observability", lifespan=lifespan)
     app.state.ready = False
+
+    metrics = create_metrics()
+    app.state.metrics = metrics
+
+    app.add_middleware(PrometheusMiddleware, metrics=metrics)
+
+    @app.get("/metrics", include_in_schema=False)
+    async def metrics_endpoint() -> Response:
+        return Response(
+            content=generate_latest(metrics.registry),
+            media_type=CONTENT_TYPE_LATEST,
+        )
 
     @app.get("/health")
     async def health() -> dict[str, str]:
