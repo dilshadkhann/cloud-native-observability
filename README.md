@@ -61,7 +61,45 @@ cloud-native-observability/
 |-- tests/
 |-- .dockerignore
 |-- Dockerfile
+|-- compose.yaml
 |-- pyproject.toml
 |-- uv.lock
 |-- README.md
 |-- LICENSE
+
+## Running with Docker Compose
+
+Docker Compose runs the complete observability stack:
+
+- FastAPI application
+- Prometheus metrics collection
+- Grafana dashboards
+
+### Start the stack
+
+```powershell
+docker compose up -d
+```
+
+### Check container status
+
+```powershell
+docker compose ps
+```
+
+### Access the services
+
+| Service | URL |
+|---|---|
+| FastAPI | http://localhost:8000 |
+| API documentation | http://localhost:8000/docs |
+| Prometheus | http://localhost:9090 |
+| Grafana | http://localhost:3000 |
+
+### Stop the stack
+
+```powershell
+docker compose down
+```
+
+Docker Compose preserves named data volumes when stopping the stack. Avoid using `docker compose down -v` unless you intentionally want to remove persistent data.
