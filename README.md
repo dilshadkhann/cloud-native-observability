@@ -1,33 +1,67 @@
 # Cloud-Native Observability Platform
 
-> **Status:** under active development. The application and monitoring stack are not yet runnable.
+A locally runnable observability platform built with FastAPI, Prometheus,
+Grafana, and Docker.
 
-A locally runnable, containerised observability platform that demonstrates how to
-instrument a Python application, collect metrics with Prometheus, and visualise
-them in Grafana.
+This project demonstrates how to instrument a Python application, collect
+application metrics, monitor HTTP performance, and visualize service health
+through Grafana dashboards.
 
-## Planned stack
+> **Project status:** Active development. The FastAPI application,
+> Prometheus integration, Docker image, and Grafana dashboards are implemented
+> and running locally.
 
-Python 3.12, FastAPI, Prometheus, Grafana OSS, Docker Compose, pytest, Ruff, uv,
-GitHub Actions.
+## Overview
 
-## Cost
+The platform provides an end-to-end application monitoring pipeline:
 
-Everything runs locally with free and open-source software. No cloud account,
-paid API or subscription is required.
+1. A FastAPI application exposes HTTP endpoints.
+2. Prometheus instrumentation collects application metrics.
+3. Prometheus scrapes the application's `/metrics` endpoint.
+4. Grafana queries Prometheus and visualizes the collected metrics.
 
-## Roadmap
+The project is designed to demonstrate practical cloud-native monitoring
+concepts using free and open-source tools.
 
-1. Repository setup (current)
-2. FastAPI application with health and readiness endpoints
-3. Prometheus metrics instrumentation
-4. Docker image
-5. Prometheus scraping
-6. Grafana dashboards
-7. Docker Compose integration
-8. Tests and CI
-9. Documentation
+## Technology Stack
 
-## License
+| Technology | Purpose |
+|---|---|
+| Python 3.12 | Application runtime |
+| FastAPI | REST API framework |
+| Prometheus | Metrics collection and monitoring |
+| Grafana OSS | Metrics visualization and dashboards |
+| Docker | Application containerization |
+| pytest | Automated testing |
+| Ruff | Linting and code formatting |
+| uv | Python dependency management |
 
-MIT, see [LICENSE](LICENSE).
+## Features
+
+- Health and readiness endpoints.
+- REST API with sample item endpoints.
+- Prometheus metrics instrumentation.
+- HTTP request, error, and latency monitoring.
+- Custom Grafana dashboard with six panels.
+- Dockerized FastAPI application.
+- Automated tests and code-quality checks.
+
+## Project Structure
+cloud-native-observability/
+|-- app/
+|   |-- __init__.py
+|   |-- config.py
+|   |-- main.py
+|   |-- metrics.py
+|-- monitoring/
+|   |-- grafana/
+|   |   |-- dashboards/
+|   |       |-- application-observability.json
+|   |-- prometheus.yml
+|-- tests/
+|-- .dockerignore
+|-- Dockerfile
+|-- pyproject.toml
+|-- uv.lock
+|-- README.md
+|-- LICENSE
