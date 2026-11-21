@@ -87,15 +87,11 @@ cloud-native-observability/
 │   └── grafana/
 │       ├── dashboards/
 │       │   └── application-observability.json
-│       └── provisioning/
-│           ├── alerting/
-│           │   └── .gitkeep
+│       └── │       └── provisioning/
 │           ├── dashboards/
 │           │   └── dashboards.yml
-│           ├── datasources/
-│           │   └── prometheus.yml
-│           └── plugins/
-│               └── .gitkeep
+│           └── datasources/
+│               └── prometheus.yml
 ├── tests/
 ├── .dockerignore
 ├── .gitignore
