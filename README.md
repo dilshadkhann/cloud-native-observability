@@ -87,7 +87,7 @@ cloud-native-observability/
 │   └── grafana/
 │       ├── dashboards/
 │       │   └── application-observability.json
-│       └── │       └── provisioning/
+│       └── provisioning/
 │           ├── dashboards/
 │           │   └── dashboards.yml
 │           └── datasources/
