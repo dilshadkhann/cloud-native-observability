@@ -3,22 +3,22 @@ name: cloud-native-observability
 services:
   observability-api:
     image: cloud-native-observability:0.1.0
-    container_name: observability-api
+    build:
+      context: .
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     restart: unless-stopped
     networks:
       - observability
 
   prometheus:
     image: prom/prometheus:v3.5.0
-    container_name: prometheus
     ports:
-      - "9090:9090"
+      - "127.0.0.1:9090:9090"
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     volumes:
-      - "./monitoring:/etc/prometheus:ro"
+      - "./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
       - "prometheus-data:/prometheus"
     depends_on:
       observability-api:
@@ -29,11 +29,12 @@ services:
 
   grafana:
     image: grafana/grafana:12.2.1
-    container_name: grafana
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     volumes:
       - "grafana-storage:/var/lib/grafana"
+      - "./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro"
+      - "./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro"
     depends_on:
       - prometheus
     restart: unless-stopped
@@ -46,9 +47,4 @@ networks:
 
 volumes:
   prometheus-data:
-    external: true
-    name: 4cb88ad0576ad8600cfd99e7ec691843dd4d6dd909c5b196d6dc84388a7500fa
-
   grafana-storage:
-    external: true
-    name: grafana-storage
